@@ -40,7 +40,8 @@
 					<div class="facts">
 					
 						<div class="register">
-							<form name="registration" method="post" action="" enctype="multipart/form-data">
+							<form name="registration" method="post" action="/signup/" enctype="multipart/form-data">
+								{% csrf_token %}
 								<p>First Name </p>
 								<input type="text" class="text" value=""  name="fname" required >
 								<p>Last Name </p>

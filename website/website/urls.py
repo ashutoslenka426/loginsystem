@@ -18,5 +18,6 @@ from django.urls import re_path,include
 
 urlpatterns = [
     re_path('admin/', admin.site.urls),
-	re_path('loginapp/', include('loginapp.urls')),
-]
+	re_path('signup/', include('loginapp.urls')),
+   ]
+
