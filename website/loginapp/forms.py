@@ -3,8 +3,7 @@ from django import forms
 from django.forms.widgets import PasswordInput
 
 class UserForm(forms.ModelForm):
-    signup = forms.CharField(widget=PasswordInput())
 
     class Meta:
         model = User
-        fields = ['username' , 'email' , 'password']
+        fields = ['first_name', 'last_name', 'email', 'password']
