@@ -5,24 +5,11 @@ from django.contrib.auth import authenticate,login
 from django.views.generic import View
 from .forms import UserForm
 
-
 def index(request):
 	return render(request , 'loginapp/index.html')
 
-
-class UserFormView(View):
-	print("test entry")
-	form_class = UserForm
-	template_name = 'loginapp/index.html'
-
-	# display blank form
-	def get(self , request):
-		form = self.form_class(None)
-		return render(request,self.template_name,{'form' : form})
-
-	# process form data
-	def signup(self , request):
-		print("test entry 1")
+# process form data
+def signup(self , request):
 		form = self.form_class(request.POST)
 
 		if form.is_valid():
