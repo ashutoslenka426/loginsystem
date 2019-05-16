@@ -3,6 +3,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
 from django.views.generic import View
 from .forms import UserForm
+from .forms import UserLoginForm
 
 
 def index(request):
@@ -10,7 +11,11 @@ def index(request):
 
 
 def success(request):
-    return render(request, 'loginapp/success.html')
+    return render(request, 'loginapp/index.html')
+
+
+def successlogin(request):
+    return render(request, 'loginapp/welcome.html')
 
 
 class UserFormView(View):
@@ -46,5 +51,31 @@ class UserFormView(View):
                 if user.is_active:
                     login(request, user)
                     return HttpResponseRedirect('/success/')
+
+        return render(request, self.template_name, {'form': form})
+
+
+class UserLoginFormView(View):
+
+    print("test entry X")
+    form_class = UserLoginForm
+    template_name = 'loginapp/index.html'
+
+    # process form data
+    def post(self, request):
+
+        form = self.form_class(request.POST)
+
+        if form.is_valid():
+            username = form.cleaned_data['email']
+            password = form.cleaned_data['password']
+
+            # returns User objects if credentials are correct
+            user = authenticate(username=username, password=password)
+
+            if user is not None:
+                if user.is_active:
+                    login(request, user)
+                    return HttpResponseRedirect('/successlogin/')
 
         return render(request, self.template_name, {'form': form})
